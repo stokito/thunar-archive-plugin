@@ -224,7 +224,7 @@ tap_backend_mime_applications (GList *content_types)
             }
 
           /* release the list of applications for this mime type */
-          g_list_foreach (list, (GFunc) g_object_unref, NULL);
+          g_list_free_full (list, g_object_unref);
           g_list_free (list);
         }
 
@@ -338,7 +338,7 @@ tap_backend_mime_application (GList     *content_types,
         }
 
       /* cleanup */
-      g_list_foreach (mime_applications, (GFunc) g_object_unref, NULL);
+      g_list_free_full (mime_applications, g_object_unref);
       g_list_free (mime_applications);
     }
 
@@ -459,7 +459,7 @@ tap_backend_run (const gchar *action,
     }
 
   /* cleanup */
-  g_list_foreach (content_types, (GFunc) g_free, NULL);
+  g_list_free_full (content_types, g_free);
   g_list_free (content_types);
 
   return pid;
