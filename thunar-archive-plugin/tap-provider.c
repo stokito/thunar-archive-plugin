@@ -91,41 +91,6 @@ struct _TapProvider
 };
 
 
-
-static const gchar TAP_MIME_TYPES[][34] = {
-  "application/x-7z-compressed",
-  "application/x-7z-compressed-tar",
-  "application/x-ar",
-  "application/x-arj",
-  "application/x-bzip",
-  "application/x-bzip-compressed-tar",
-  "application/x-compress",
-  "application/x-compressed-tar",
-  "application/x-deb",
-  "application/x-gtar",
-  "application/x-gzip",
-  "application/x-lha",
-  "application/x-lhz",
-  "application/x-lzma",
-  "application/x-lzma-compressed-tar",
-  "application/x-rar",
-  "application/x-rar-compressed",
-  "application/x-tar",
-  "application/x-xz",
-  "application/x-xz-compressed-tar",
-  "application/x-zip",
-  "application/x-zip-compressed",
-  "application/zip",
-  "multipart/x-zip",
-  "application/x-rpm",
-  "application/x-jar",
-  "application/x-java-archive",
-  "application/x-lzop",
-  "application/x-zoo",
-  "application/x-cd-image",
-  "application/x-7z-compressed",
-};
-
 static GQuark tap_item_files_quark;
 static GQuark tap_item_folder_quark;
 static GQuark tap_item_provider_quark;
@@ -195,13 +160,7 @@ tap_provider_finalize (GObject *object)
 static gboolean
 tap_is_archive (ThunarxFileInfo *file_info)
 {
-  guint n;
-
-  for (n = 0; n < G_N_ELEMENTS (TAP_MIME_TYPES); ++n)
-    if (thunarx_file_info_has_mime_type (file_info, TAP_MIME_TYPES[n]))
-      return TRUE;
-
-  return FALSE;
+  return thunarx_file_info_is_archive (file_info);
 }
 
 
